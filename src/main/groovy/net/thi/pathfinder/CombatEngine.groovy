@@ -4,11 +4,26 @@ import groovy.json.JsonSlurper
 
 class CombatEngine {
     /** Determines whether an attack hits or not */
-    boolean hitRoll(int roll, int weaponSkill) {
-        return roll >= weaponSkill
+    boolean rollHitsTarget(int roll, int target) {
+        return roll >= target
     }
 
-    int woundRoll(int strength, int toughness) {
+    /** Determines whether invulnerable saves are preferable */
+    boolean shouldInvulnerableSave(int save, int invulnerableSave, int armourPierce) {
+        if (invulnerableSave == -1) {
+            return false
+        }
+
+        return save - armourPierce > invulnerableSave
+    }
+
+    /** Determines whether a save succeeds */
+    boolean save(int roll, int save, int armourPierce) {
+        return roll + armourPierce >= save
+    }
+
+    /** Determines the floor a wound roll must reach */
+    int woundRollTarget(int strength, int toughness) {
         // If Strength is double or more than toughness then it's a 2+
         if (strength >= toughness * 2) {
             return 2

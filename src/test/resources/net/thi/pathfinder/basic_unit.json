@@ -14,16 +14,16 @@
         {
             "name": "Executioner Greatblade",
             "range": "Melee",
-            "strength_bonus": "1",
-            "armour_piercing": "-3",
+            "strength_bonus": 1,
+            "armour_piercing": -3,
             "damage": "D3"
         },
         {
             "name": "Psyk-Out Grenades",
-            "range": "6ft",
-            "strength": "2",
-            "armour_piercing": "0",
-            "damage": "1"
+            "range": 6,
+            "strength": 2,
+            "armour_piercing": 0,
+            "damage": 1
         }
     ]
 }

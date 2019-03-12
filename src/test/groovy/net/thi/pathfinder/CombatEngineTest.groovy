@@ -16,7 +16,7 @@ class CombatEngineTest extends Specification {
 
         tests.each { test ->
             when:
-            def result = engine.hitRoll(test[0], test[1])
+            def result = engine.rollHitsTarget(test[0], test[1])
 
             then:
             result != null
@@ -39,11 +39,62 @@ class CombatEngineTest extends Specification {
 
         tests.each { test ->
             when:
-            def result = engine.woundRoll(test[0], test[1])
+            def result = engine.woundRollTarget(test[0], test[1])
 
             then:
             result != null
             result == test[2]
+        }
+    }
+
+    def "normal_saves"() {
+        setup:
+        def engine = new CombatEngine()
+
+        // [roll, save, armourPierce, expectedResult]
+        def tests = [
+            [ 3, 4, 0, false],
+            [ 4, 4, 0,  true],
+            [ 6, 4, 0,  true],
+            [ 3, 4, 1, false],
+            [ 5, 4, 1,  true],
+            [ 4, 4, 1, false],
+        ]
+
+        tests.each { test ->
+            when:
+            def result = engine.save(test[0], test[1], test[2])
+
+            then:
+            result != null
+            result == test[3]
+        }
+    }
+
+    def "decider_picks_saves"() {
+        setup:
+        def engine = new CombatEngine()
+
+        // [save, invulnerableSave, armourPierce, expectedResult]
+        def tests = [
+            [ 4,  4, 0, false],
+            [ 6,  5, 0,  true],
+            [ 3,  5, 2, false],
+            [ 3,  5, 1, false],
+            [ 2,  4, 0, false],
+            [ 2,  4, 4,  true],
+            [ 4, -1, 0, false],
+            [ 6, -1, 0, false],
+            [ 6, -1, 6, false],
+        ]
+
+        tests.each { test ->
+            when:
+            def result = engine.shouldInvulnerableSave(test[0], test[1], test[2])
+
+            then:
+            result != null
+            result == test[3]
         }
     }
 }

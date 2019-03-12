@@ -3,6 +3,32 @@ package net.thi.pathfinder
 import groovy.json.JsonSlurper
 
 class CombatEngine {
+    Dice dice
+
+    CombatEngine() {
+        this(new Dice())
+    }
+
+    CombatEngine(Dice dice) {
+        this.dice = dice
+    }
+
+    /** Calculates the damage after feel no pain takes effect */
+    int feelNoPain(int damage, int feelNoPain) {
+        if (feelNoPain == -1) {
+            return damage
+        }
+
+        int totalDamage = damage
+        damage.times {
+            int roll = dice.roll(1, 6)
+            if (rollHitsTarget(roll, feelNoPain)) {
+                totalDamage--
+            }
+        }
+        return totalDamage
+    }
+
     /** Determines whether an attack hits or not */
     boolean rollHitsTarget(int roll, int target) {
         return roll >= target

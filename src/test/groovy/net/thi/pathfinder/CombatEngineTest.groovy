@@ -3,6 +3,18 @@ package net.thi.pathfinder
 import spock.lang.Specification
 
 class CombatEngineTest extends Specification {
+    def "feel_no_pain"() {
+        setup:
+        def dice = new Dice(1337)
+        def engine = new CombatEngine(dice)
+
+        when:
+        def result = engine.feelNoPain(5, 6)
+
+        then:
+        assert result == 4
+    }
+
     def "roll_vs_weaponskill"() {
         setup:
         def engine = new CombatEngine()
@@ -19,7 +31,6 @@ class CombatEngineTest extends Specification {
             def result = engine.rollHitsTarget(test[0], test[1])
 
             then:
-            result != null
             result == test[2]
         }
     }
@@ -42,7 +53,6 @@ class CombatEngineTest extends Specification {
             def result = engine.woundRollTarget(test[0], test[1])
 
             then:
-            result != null
             result == test[2]
         }
     }
@@ -66,7 +76,6 @@ class CombatEngineTest extends Specification {
             def result = engine.save(test[0], test[1], test[2])
 
             then:
-            result != null
             result == test[3]
         }
     }
@@ -93,7 +102,6 @@ class CombatEngineTest extends Specification {
             def result = engine.shouldInvulnerableSave(test[0], test[1], test[2])
 
             then:
-            result != null
             result == test[3]
         }
     }

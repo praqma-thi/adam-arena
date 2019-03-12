@@ -1,6 +1,7 @@
 plugins {
     id 'groovy'
     id 'application'
+    id 'jacoco'
 }
 
 repositories {
@@ -11,5 +12,14 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy-all:2.5.4'
     testImplementation 'org.spockframework:spock-core:1.2-groovy-2.5'
 }
+
+jacocoTestReport {
+    reports {
+        html.destination file("${buildDir}/jacoco")
+    }
+}
+
+build.dependsOn('jacocoTestReport')
+jacocoTestReport.dependsOn('test')
 
 mainClassName = 'net.thi.pathfinder.App'

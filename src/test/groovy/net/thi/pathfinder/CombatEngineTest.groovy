@@ -15,6 +15,18 @@ class CombatEngineTest extends Specification {
         assert result == 4
     }
 
+    def "feel_no_pain_disabled"() {
+        setup:
+        def dice = new Dice(1337)
+        def engine = new CombatEngine(dice)
+
+        when:
+        def result = engine.feelNoPain(5, -1)
+
+        then:
+        assert result == 5
+    }
+
     def "roll_vs_weaponskill"() {
         setup:
         def engine = new CombatEngine()

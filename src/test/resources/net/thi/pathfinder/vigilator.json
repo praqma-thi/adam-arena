@@ -9,9 +9,10 @@
         "weapon_skill": 3,
         "ballistic_skill": 3,
         "save": 3,
-        "leadership": 9
+        "leadership": 9,
+        "attacks": 2
     },
-    "attacks": [
+    "weapons": [
         {
             "name": "Executioner Greatblade",
             "range": 1,

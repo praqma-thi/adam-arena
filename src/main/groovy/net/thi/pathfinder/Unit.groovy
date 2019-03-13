@@ -17,6 +17,12 @@ class Unit {
         this.wound = maxWound
     }
 
+    int remainingModels() {
+        int damageTaken = maxWound - wound
+        int remainingModels = Math.ceil((maxWound - damageTaken) / config.attributes.wound)
+        return remainingModels < 0 ? 0 : remainingModels
+    }
+
     Object propertyMissing(String name) {
         return config."$name"
     }

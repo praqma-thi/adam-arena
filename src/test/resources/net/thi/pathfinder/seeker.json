@@ -10,9 +10,10 @@
         "ballistic_skill": 3,
         "save": 6,
         "invulnerable_save": 5,
-        "leadership": 7
+        "leadership": 7,
+        "attacks": 2
     },
-    "attacks": [
+    "weapons": [
         {
             "name": "Piercing Claws",
             "range": 1,
@@ -25,8 +26,7 @@
             "range": 1,
             "strength": 4,
             "armour_piercing": 0,
-            "damage": 1,
-            "steed": true
+            "damage": 1
         }
     ]
 }

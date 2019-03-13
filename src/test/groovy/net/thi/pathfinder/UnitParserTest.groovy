@@ -15,7 +15,7 @@ class UnitParserTest extends Specification {
         result != null
         result.name == "Vigilator"
         result.attributes.wound == 1
-        result.attacks.size() == 2
-        result.attacks.first().name == "Executioner Greatblade"
+        result.weapons.size() == 2
+        result.weapons.first().name == "Executioner Greatblade"
     }
 }

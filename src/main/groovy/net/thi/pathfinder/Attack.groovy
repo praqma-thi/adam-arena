@@ -30,7 +30,7 @@ class Attack {
         return succeededRolls
     }
 
-    /** Returns amount of damage dealt */
+    /** Returns amount of outgoing wounds */
     int woundRoll(Unit attacker, Unit defender, int numberOfAttacks) {
         def weapon = attacker.weapons.first() // TODO: Allow for choosing weapons
 
@@ -47,5 +47,26 @@ class Attack {
             }
         }
         return woundRoll
+    }
+
+    /** Returns amount of wounds that made it through saves */
+    int saveRoll(Unit attacker, Unit defender, int wounds) {
+        def weapon = attacker.weapons.first() // TODO: Allow for choosing weapons
+
+        int save = defender.attributes.save ?: 0
+        int invSave = defender.attributes.invulnerable_save ?: -1
+        int ap = weapon.armour_piercing ?: 0
+
+        boolean shouldInvSave = engine.shouldInvulnerableSave(save, invSave, ap)
+
+        int incomingWounds = 0
+        wounds.times {
+            int roll = engine.dice.roll(1, 6)
+            boolean saved = shouldInvSave ? engine.rollHitsTarget(roll, invSave) : engine.rollHitsTarget(roll, save + ap)
+            if (!saved) {
+                incomingWounds++
+            }
+        }
+        return incomingWounds
     }
 }

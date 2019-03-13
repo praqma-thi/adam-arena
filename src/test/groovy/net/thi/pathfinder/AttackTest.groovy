@@ -63,4 +63,17 @@ class AttackTest extends Specification {
         then:
         assert wounds == 8
     }
+
+    def "save_roll"() {
+        setup:
+        def vigilators = newSquad(10, "vigilator")
+        def seekers = newSquad(10, "seeker")
+        def attack = newAttack(1337)
+
+        when:
+        def wounds = attack.saveRoll(vigilators, seekers, 8)
+
+        then:
+        assert wounds == 3
+    }
 }

@@ -45,9 +45,22 @@ class AttackTest extends Specification {
         def attack = newAttack(1337)
 
         when:
-        def result = attack.attackRoll(vigilators)
+        def attacks = attack.attackRoll(vigilators)
 
         then:
-        assert result == 13
+        assert attacks == 13
+    }
+
+    def "wound_roll"() {
+        setup:
+        def vigilators = newSquad(10, "vigilator")
+        def seekers = newSquad(10, "seeker")
+        def attack = newAttack(1337)
+
+        when:
+        def wounds = attack.woundRoll(vigilators, seekers, 13)
+
+        then:
+        assert wounds == 8
     }
 }

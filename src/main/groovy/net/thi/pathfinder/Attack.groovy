@@ -31,4 +31,21 @@ class Attack {
     }
 
     /** Returns amount of damage dealt */
+    int woundRoll(Unit attacker, Unit defender, int numberOfAttacks) {
+        def weapon = attacker.weapons.first() // TODO: Allow for choosing weapons
+
+        int strength = weapon.strength ?: attacker.attributes.strength
+        int strengthBonus = weapon.strength_bonus ?: 0
+        int toughness = defender.attributes.toughness
+        int target = engine.woundRollTarget(strength, toughness)
+
+        int woundRoll = 0
+        numberOfAttacks.times {
+            int roll = engine.dice.roll(1, 6)
+            if (engine.rollHitsTarget(roll, target)) {
+                woundRoll++
+            }
+        }
+        return woundRoll
+    }
 }

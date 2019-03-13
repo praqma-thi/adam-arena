@@ -1,6 +1,7 @@
 {
     "faction": "Sisters of Silence",
-    "name": "Vigilators",
+    "name": "Vigilator",
+    "cost": 15,
     "attributes": {
         "wound": 1,
         "strength": 3,
@@ -13,10 +14,10 @@
     "attacks": [
         {
             "name": "Executioner Greatblade",
-            "range": "Melee",
+            "range": 1,
             "strength_bonus": 1,
             "armour_piercing": -3,
-            "damage": "D3"
+            "damage_roll": "D3"
         },
         {
             "name": "Psyk-Out Grenades",

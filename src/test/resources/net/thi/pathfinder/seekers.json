@@ -1,0 +1,32 @@
+{
+    "faction": "Chaos Daemons",
+    "name": "Seekers of Slaanesh",
+    "cost": 15,
+    "attributes": {
+        "wound": 2,
+        "strength": 3,
+        "toughness": 3,
+        "weapon_skill": 3,
+        "ballistic_skill": 3,
+        "save": 6,
+        "invulnerable_save": 5,
+        "leadership": 7
+    },
+    "attacks": [
+        {
+            "name": "Piercing Claws",
+            "range": 1,
+            "strength_bonus": 0,
+            "armour_piercing": -1,
+            "damage": 1
+        },
+        {
+            "name": "Lashing Tongue",
+            "range": 1,
+            "strength": 4,
+            "armour_piercing": 0,
+            "damage": 1,
+            "steed": true
+        }
+    ]
+}

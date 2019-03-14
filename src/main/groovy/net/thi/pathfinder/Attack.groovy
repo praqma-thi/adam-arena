@@ -1,17 +1,17 @@
 package net.thi.pathfinder
 
-class Attack {
+class Attack { 
     CombatEngine engine
 
     Attack() {
-        this(new CombatEngine())
+        this(new CombatEngine()) 
     }
 
     Attack(CombatEngine engine) {
         this.engine = engine
     }
 
-    int numberOfAttacks(Unit attacker) {
+    int numberOfAttacks(Unit attacker) { 
         int extraLeaderAttack = attacker.remainingModels() > 0 ? 1 : 0
         return extraLeaderAttack + (attacker.attributes.attacks * attacker.remainingModels())
     }
@@ -54,10 +54,10 @@ class Attack {
         def weapon = attacker.weapons.first() // TODO: Allow for choosing weapons
 
         int save = defender.attributes.save ?: 0
-        int invSave = defender.attributes.invulnerable_save ?: -1
-        int ap = weapon.armour_piercing ?: 0
+        int invSave = defender.attributes.invulnerable_save ?: -1 
+        int ap = weapon.armour_piercing ?: 0 
 
-        boolean shouldInvSave = engine.shouldInvulnerableSave(save, invSave, ap)
+        boolean shouldInvSave = engine.shouldInvulnerableSave(save, invSave, ap) 
 
         int incomingWounds = 0
         wounds.times {
@@ -69,4 +69,17 @@ class Attack {
         }
         return incomingWounds
     }
-}
+
+    /** Deals damage to defending unit, taking overkill into account */ 
+    void kill(Unit defender, int incomingDamage) {
+        if (incomingDamage == 0) {
+            return
+        }
+
+        int minimumWound = defender.attributes.wound * Math.floor((defender.wound - 1) / defender.attributes.wound)
+        int maximumWound = defender.wound - incomingDamage
+        int actualWound = minimumWound > maximumWound ? minimumWound : maximumWound
+
+        defender.wound = actualWound
+    }
+} 

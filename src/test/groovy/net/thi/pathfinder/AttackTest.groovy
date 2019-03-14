@@ -76,4 +76,36 @@ class AttackTest extends Specification {
         then:
         assert wounds == 3
     }
+
+    def "kill"() {
+        setup:
+        def attack = newAttack(1337)
+
+        // unit, models, lost wounds, incoming damage, expectedWounds, expectedRemainingModels
+        def tests = [
+            ["vigilator", 10, 0,  0, 10, 10],
+            ["vigilator", 10, 0,  1,  9,  9],
+            ["vigilator", 10, 0,  2,  9,  9],
+            ["vigilator", 10, 0, 10,  9,  9],
+            ["vigilator", 10, 1,  1,  8,  8],
+            ["vigilator", 10, 1,  2,  8,  8],
+            ["seeker",    10, 0,  0, 20, 10],
+            ["seeker",    10, 0,  1, 19, 10],
+            ["seeker",    10, 0,  2, 18,  9],
+            ["seeker",    10, 0, 10, 18,  9],
+            ["seeker",    10, 1,  2, 18,  9],
+            ["seeker",    10, 2,  2, 16,  8],
+        ]
+
+        tests.each { test ->
+            when:
+            Unit squad = newSquad(test[1], test[0])
+            squad.wound -= test[2]
+            attack.kill(squad, test[3])
+
+            then:
+            assert squad.wound == test[4]
+            assert squad.remainingModels() == test[5]
+        }
+    }
 }

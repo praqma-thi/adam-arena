@@ -11,6 +11,7 @@ class Attack {
         this.engine = engine
     }
 
+    /** Returns amount of attacks */
     int numberOfAttacks(Unit attacker) { 
         int extraLeaderAttack = attacker.remainingModels() > 0 ? 1 : 0
         return extraLeaderAttack + (attacker.attributes.attacks * attacker.remainingModels())
@@ -70,14 +71,31 @@ class Attack {
         return incomingWounds
     }
 
+    /** Returns amount of damage that made it through feel no pain  */
+    int feelNoPain(Unit defender, int incomingDamage) {
+        int unitFNP = defender.attributes.feel_no_pain
+        if (!unitFNP) {
+            return incomingDamage
+        }
+
+        int trueDamage = incomingDamage
+        incomingDamage.times {
+            int FNP = engine.dice.roll (1, 6)
+            if (FNP >= unitFNP) {
+               trueDamage--
+            }
+        }
+        return trueDamage
+    }
+
     /** Deals damage to defending unit, taking overkill into account */ 
-    void kill(Unit defender, int incomingDamage) {
-        if (incomingDamage == 0) {
+    void kill(Unit defender, int trueDamage) {
+        if (trueDamage == 0) {
             return
         }
 
         int minimumWound = defender.attributes.wound * Math.floor((defender.wound - 1) / defender.attributes.wound)
-        int maximumWound = defender.wound - incomingDamage
+        int maximumWound = defender.wound - trueDamage
         int actualWound = minimumWound > maximumWound ? minimumWound : maximumWound
 
         defender.wound = actualWound

@@ -24,7 +24,6 @@
             "name": "Psyk-Out Grenades",
             "range": 6,
             "strength": 2,
-            "armour_piercing": 0,
             "damage": 1
         }
     ]

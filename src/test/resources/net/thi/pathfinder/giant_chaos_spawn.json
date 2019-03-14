@@ -1,0 +1,40 @@
+{
+    "faction": "Chaos Daemons",
+    "name": "Giant Chaos Spawn Of Nurgle",
+    "cost": 150,
+    "attributes": {
+        "wound": 10,
+        "strength": {
+            "based_on": "wound",
+            "values": {
+                "4": "2D6",
+                "9": "3+1D6",
+                "19": "6+1D3",
+                "+": "6+1D6"
+            }
+        },
+        "toughness": 5,
+        "weapon_skill": 4,
+        "save": 4,
+        "invulnerable_save": 5,
+        "leadership": 10,
+        "attacks":  {
+            "based_on": "wound",
+            "values": {
+                "4": "2D6",
+                "9": "3+1D6",
+                "19": "6+1D3",
+                "+": "6+1D6"
+            }
+        },
+        "feel_no_pain": 5
+    },
+    "weapons": [
+        {
+            "name": "Churning Fangs And Claws",
+            "range": 1,
+            "damage": "D3",
+            "armour_pierce": -1
+        }
+    ]
+}

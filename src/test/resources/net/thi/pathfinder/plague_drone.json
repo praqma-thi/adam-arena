@@ -1,0 +1,36 @@
+{
+    "faction": "Chaos Daemons",
+    "name": "Plague Drone",
+    "cost": 40,
+    "attributes": {
+        "wound": 4,
+        "strength": 4,
+        "toughness": 5,
+        "weapon_skill": 4,
+        "ballistic_skill": 4,
+        "save": 6,
+        "invulnerable_save": 5,
+        "leadership": 7,
+        "attacks": 1,
+        "feel_no_pain": 5
+    },
+    "weapons": [
+        {
+            "name": "Plague Sword",
+            "range": 1,
+            "damage": 1
+        },
+        {
+            "name": "Prehensile Proboscis",
+            "range": 1,
+            "strength": 4,
+            "damage": 2
+        },
+        {
+            "name": "Death's Head",
+            "range": 12,
+            "strength": 4,
+            "damage": 1
+        }
+    ]
+}

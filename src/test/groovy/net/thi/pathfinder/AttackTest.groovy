@@ -108,4 +108,25 @@ class AttackTest extends Specification {
             assert squad.remainingModels() == test[5]
         }
     }
+
+    def "feel_no_pain"() {
+        setup:
+        def attack = newAttack(1337)
+
+        // unit, models, incoming damage, expectedRemainingDamage
+        def tests = [
+            ["vigilator", 10, 2,  2],
+            ["seeker",    10, 3,  3],
+            ["giant_chaos_spawn", 1, 10, 5]
+        ]
+
+        tests.each { test ->
+            when:
+            Unit squad = newSquad(test[1], test[0])
+            int trueDamage = attack.feelNoPain(squad, test[2])
+
+            then:
+            assert trueDamage == test[3]
+        }
+    }
 }

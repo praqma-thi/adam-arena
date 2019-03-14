@@ -17,7 +17,6 @@
         {
             "name": "Piercing Claws",
             "range": 1,
-            "strength_bonus": 0,
             "armour_piercing": -1,
             "damage": 1
         },
@@ -25,7 +24,6 @@
             "name": "Lashing Tongue",
             "range": 1,
             "strength": 4,
-            "armour_piercing": 0,
             "damage": 1
         }
     ]

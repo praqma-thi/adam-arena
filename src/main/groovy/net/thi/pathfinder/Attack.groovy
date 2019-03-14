@@ -11,10 +11,29 @@ class Attack {
         this.engine = engine
     }
 
+    /** Run an entire fight phase */
+    void doFightPhase(Unit attacker, Unit defender) {
+        println "===== Start of [${attacker.name} attacks ${defender.name}] ====="
+        int aRoll = attackRoll(attacker)
+        int wRoll = woundRoll (attacker, defender, aRoll)
+        int sRoll = saveRoll  (attacker, defender, wRoll)
+        sRoll.times {
+            int dRoll = damageRoll(attacker)
+            int fnpRoll = feelNoPain(defender, dRoll)
+            kill(defender, fnpRoll) //* THEM ALL*/
+        }
+        println "===== End of [${attacker.name} attacks ${defender.name}] ====="
+    }
+
     /** Returns amount of attacks */
     int numberOfAttacks(Unit attacker) { 
-        int extraLeaderAttack = attacker.remainingModels() > 0 ? 1 : 0
-        return extraLeaderAttack + (attacker.attributes.attacks * attacker.remainingModels())
+        int extraLeaderAttack = 1
+        if (attacker.attributes.no_leader == true || attacker.remainingModels() <= 0) {
+            extraLeaderAttack = 0
+        }
+        int attacks = extraLeaderAttack + (attacker.attributes.attacks * attacker.remainingModels())
+        println "[${attacker.name}] $attacks attacks"
+        return attacks
     }
 
     /** Returns amount of succeeded attacks */
@@ -28,6 +47,7 @@ class Attack {
                 succeededRolls++
             }
         }
+        println "[${attacker.name}] $succeededRolls successful attack rolls"
         return succeededRolls
     }
 
@@ -38,7 +58,7 @@ class Attack {
         int strength = weapon.strength ?: attacker.attributes.strength
         int strengthBonus = weapon.strength_bonus ?: 0
         int toughness = defender.attributes.toughness
-        int target = engine.woundRollTarget(strength, toughness)
+        int target = engine.woundRollTarget(strength + strengthBonus, toughness)
 
         int woundRoll = 0
         numberOfAttacks.times {
@@ -47,6 +67,8 @@ class Attack {
                 woundRoll++
             }
         }
+
+        println "[${attacker.name}] ${woundRoll} wounds"
         return woundRoll
     }
 
@@ -54,21 +76,43 @@ class Attack {
     int saveRoll(Unit attacker, Unit defender, int wounds) {
         def weapon = attacker.weapons.first() // TODO: Allow for choosing weapons
 
-        int save = defender.attributes.save ?: 0
+        int save = defender.attributes.save
         int invSave = defender.attributes.invulnerable_save ?: -1 
-        int ap = weapon.armour_piercing ?: 0 
+        int ap = weapon.armour_piercing ?: 0
+
+        if (!save) { throw Exception("${defender.name} has no save.") }
 
         boolean shouldInvSave = engine.shouldInvulnerableSave(save, invSave, ap) 
 
         int incomingWounds = 0
         wounds.times {
             int roll = engine.dice.roll(1, 6)
-            boolean saved = shouldInvSave ? engine.rollHitsTarget(roll, invSave) : engine.rollHitsTarget(roll, save + ap)
-            if (!saved) {
+            int target = shouldInvSave ? invSave : save - ap
+            if (!engine.rollHitsTarget(roll, target)) {
                 incomingWounds++
             }
         }
+
+        println "[${attacker.name}] ${incomingWounds} wounds past save"
         return incomingWounds
+    }
+
+    /** Returns amount of damage */
+    int damageRoll(Unit attacker) {
+        def weapon = attacker.weapons.first() // TODO: Allow for choosing weapons
+
+        if (weapon.damage) {
+            println "[${attacker.name}] ${weapon.damage} damage"
+            return weapon.damage
+        }
+        
+        if (weapon.damage_roll) {
+            int damage = engine.dice.roll(weapon.damage_roll)
+            println "[${attacker.name}] ${damage} damage"
+            return damage
+        }
+
+        throw new Exception("Weapon is inert, lacking both damage and damage roll.")
     }
 
     /** Returns amount of damage that made it through feel no pain  */
@@ -85,6 +129,8 @@ class Attack {
                trueDamage--
             }
         }
+
+        println "[${defender.name}] ${trueDamage} damage past feel no pain"
         return trueDamage
     }
 
@@ -98,6 +144,7 @@ class Attack {
         int maximumWound = defender.wound - trueDamage
         int actualWound = minimumWound > maximumWound ? minimumWound : maximumWound
 
+        println "[${defender.name}] ${actualWound} wounds left"
         defender.wound = actualWound
     }
 } 

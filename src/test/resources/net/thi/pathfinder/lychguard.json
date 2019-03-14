@@ -1,0 +1,26 @@
+{
+    "faction": "Necrons",
+    "name": "Lychguard",
+    "cost": 19,
+    "attributes": {
+        "no_leader": true,
+        "wound": 2,
+        "strength": 5,
+        "toughness": 5,
+        "weapon_skill": 3,
+        "ballistic_skill": 3,
+        "save": 3,
+        "invulnerable_save": 4,
+        "leadership": 10,
+        "attacks": 2
+    },
+    "weapons": [
+        {
+            "name": "Hyperphase Sword",
+            "range": 1,
+            "strength_bonus": 1,
+            "armour_piercing": -3,
+            "damage": 1
+        }
+    ]
+}

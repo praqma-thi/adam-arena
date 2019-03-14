@@ -18,7 +18,7 @@
             "range": 1,
             "strength_bonus": 1,
             "armour_piercing": -3,
-            "damage_roll": "D3"
+            "damage_roll": "1D3"
         },
         {
             "name": "Psyk-Out Grenades",

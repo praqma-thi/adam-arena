@@ -15,6 +15,42 @@ class AttackTest extends Specification {
         return new Attack(combat)
     }
 
+    def "play_attack_round"() {
+        setup:
+        Unit vigilators = newSquad(10, "vigilator")
+        Unit lychguard = newSquad(5, "lychguard")
+        Attack attack = newAttack(1337)
+
+        when:
+        attack.doFightPhase(vigilators, lychguard)
+        
+        then:
+        assert lychguard.wound == 2
+        assert lychguard.remainingModels() == 1
+
+    }
+
+    def "damageRoll"() {
+        setup:
+        Attack attack = newAttack(1337)
+
+        // [unit, wound, expectedDamage]
+        def tests = [
+            ["vigilator", 2],
+            ["seeker",    1],
+            ["lychguard", 1]
+        ]
+
+        tests.each { test ->
+            when:
+            Unit squad = newSquad(10, test[0])
+            int damage = attack.damageRoll(squad)
+
+            then:
+            assert damage == test[1]
+        }
+    }
+
     def "number_of_attacks"() {
         setup:
         // [unit, count, damageTaken, expectedAttacks]
@@ -26,6 +62,7 @@ class AttackTest extends Specification {
             ["seeker",     5,  4,  7],
             ["seeker",     5, 10,  0],
             ["seeker",     5, 16,  0],
+            ["lychguard",  5,  0, 10]
         ]
 
         tests.each { test ->
@@ -62,6 +99,21 @@ class AttackTest extends Specification {
 
         then:
         assert wounds == 8
+    }
+
+    def "#20: vigilators_save_on_one"() {
+        setup:
+        def vigilator = newSquad(1, "vigilator")
+        def lychguard = newSquad(1, "lychguard")
+        def attack = newAttack(1337)
+
+        when:
+        // First roll is 2, second is one
+        attack.engine.dice.roll(1, 6)
+        def wounds = attack.saveRoll(lychguard, vigilator, 1)
+
+        then:
+        assert wounds == 1
     }
 
     def "save_roll"() {

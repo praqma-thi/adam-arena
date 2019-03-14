@@ -33,7 +33,7 @@
         {
             "name": "Churning Fangs And Claws",
             "range": 1,
-            "damage": "D3",
+            "damage": "1D3",
             "armour_pierce": -1
         }
     ]

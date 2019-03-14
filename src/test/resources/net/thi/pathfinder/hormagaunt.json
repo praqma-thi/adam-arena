@@ -1,0 +1,23 @@
+{
+    "faction": "Tyrranid",
+    "name": "Hormagaunt",
+    "cost": 5,
+    "attributes": {
+        "no_leader": true,
+        "wound": 1,
+        "strength": 3,
+        "toughness": 3,
+        "weapon_skill": 4,
+        "ballistic_skill": 4,
+        "save": 6,
+        "leadership": 5,
+        "attacks": 2
+    },
+    "weapons": [
+        {
+            "name": "Scythe and Talons",
+            "range": 1,
+            "damage": 1
+        }
+    ]
+}

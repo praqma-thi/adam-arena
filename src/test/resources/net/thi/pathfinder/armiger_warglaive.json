@@ -1,0 +1,31 @@
+{
+    "faction": "Imperial Knights",
+    "name": "Armiger Warglaive",
+    "cost": 162,
+    "attributes": {
+        "wound": 12,
+        "strength": 6,
+        "toughness": 7,
+        "weapon_skill": 3,
+        "ballistic_skill": 3,
+        "save": 3,
+        "leadership": 8,
+        "attacks": 4
+    },
+    "weapons": [
+        {
+            "name": "Reaper Chain-Cleaver (Strike)",
+            "range": 1,
+            "strength_bonus": 6,
+            "armour_piercing": -3,
+            "damage": 3
+        },
+        {
+            "name": "Reaper Chain-Cleaver (Sweep)",
+            "range": 1,
+            "armour_piercing": -2,
+            "damage": 1,
+            "bonus_attacks": 1
+        }
+    ]
+}

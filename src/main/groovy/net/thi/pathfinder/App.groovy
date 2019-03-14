@@ -8,8 +8,8 @@ class App {
     }
 
     static void main(String[] args) {
-        Unit squadOne = newSquad(45, "hormagaunt")
-        Unit squadTwo = newSquad(10, "lychguard")
+        Unit squadOne = newSquad(1, "bloodthirster")
+        Unit squadTwo = newSquad(1, "stompa")
         Attack attack = new Attack()
 
         boolean heads = new Dice().roll(1, 2) == 1

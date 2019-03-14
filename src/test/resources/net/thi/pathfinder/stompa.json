@@ -1,0 +1,24 @@
+{
+    "faction": "Ork",
+    "name": "Stompa",
+    "cost": 920,
+    "attributes": {
+        "wound": 40,
+        "strength": 10,
+        "toughness": 8,
+        "weapon_skill": 3,
+        "ballistic_skill": 5,
+        "save": 3,
+        "leadership": 8,
+        "attacks": 6
+    },
+    "weapons": [
+        {
+            "name": "Mega-choppa (Smash)",
+            "range": 1,
+            "strength_bonus": 10,
+            "armour_piercing": -5,
+            "damage": 6
+        }
+    ]
+}

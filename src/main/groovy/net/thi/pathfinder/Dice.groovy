@@ -23,9 +23,9 @@ class Dice {
     }
  
     int roll (String input) {
-        String diceMatch = /(\d+)D(3|6)/
+        String diceMatch = /(\d+)D(\d+)/
         def matches = input =~ diceMatch
-        String flat = input.replaceAll(/(\d+)D(3|6)/, '')
+        String flat = input.replaceAll(/(\d+)D(\d+)/, '')
 
         int total = 0
         matches.each { match ->

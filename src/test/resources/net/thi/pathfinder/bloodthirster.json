@@ -1,0 +1,33 @@
+{
+    "faction": "Chaos Daemons",
+    "name": "Rakah Tanksmasher",
+    "cost": 260,
+    "attributes": {
+        "wound": 16,
+        "strength": 8,
+        "toughness": 7,
+        "weapon_skill": 2,
+        "ballistic_skill": 2,
+        "save": 3,
+        "invulnerable_save": 4,
+        "leadership": 10,
+        "attacks": 7,
+        "feel_no_pain": 6
+    },
+    "weapons": [
+        {
+            "name": "Mighty Strike",
+            "range": 1,
+            "strength_bonus": 8,
+            "armour_piercing": -4,
+            "damage_roll": "2D5"
+        },
+        {
+            "name": "Sweeping Blow",
+            "range": 1,
+            "armour_piercing": -2,
+            "damage": 1,
+            "bonus_attacks": 1
+        }
+    ]
+}

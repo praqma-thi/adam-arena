@@ -1,7 +1,7 @@
 {
     "faction": "Necrons",
     "name": "Lychguard",
-    "cost": 19,
+    "cost": 28,
     "attributes": {
         "no_leader": true,
         "wound": 2,

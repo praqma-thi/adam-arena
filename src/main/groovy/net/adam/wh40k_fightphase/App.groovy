@@ -70,6 +70,12 @@ class App {
             second = spectator
         }
 
-        println squadOne.remainingModels() > 0 ? "Winner: ${squadOne.name}" : "Winner: ${squadTwo.name}"
+        if (squadOne.remainingModels() > 0) {
+            println "Winner: ${squadOne.name}"
+        } else if (squadTwo.remainingModels() > 0) {
+            println "Winner: ${squadTwo.name}"
+        } else {
+            println "Winner: Draw"
+        }
     }
 }

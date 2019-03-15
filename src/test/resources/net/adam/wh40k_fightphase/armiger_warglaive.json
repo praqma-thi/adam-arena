@@ -3,6 +3,7 @@
     "name": "Armiger Warglaive",
     "cost": 162,
     "attributes": {
+        "no_leader": true,
         "wound": 12,
         "strength": 6,
         "toughness": 7,

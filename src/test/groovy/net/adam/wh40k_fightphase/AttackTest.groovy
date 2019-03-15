@@ -62,7 +62,8 @@ class AttackTest extends Specification {
             ["seeker",     5,  4,  7],
             ["seeker",     5, 10,  0],
             ["seeker",     5, 16,  0],
-            ["lychguard",  5,  0, 10]
+            ["lychguard",  5,  0, 10],
+            ["bloodthirster_sweep",  1,  0, 14],
         ]
 
         tests.each { test ->

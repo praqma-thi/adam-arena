@@ -26,12 +26,15 @@ class Attack {
     }
 
     /** Returns amount of attacks */
-    int numberOfAttacks(Unit attacker) { 
+    int numberOfAttacks(Unit attacker) {
+        def weapon = attacker.weapons.first()
+        int weaponBonusAttacks = weapon.bonus_attacks ?: 0
+
         int extraLeaderAttack = 1
         if (attacker.attributes.no_leader == true || attacker.remainingModels() <= 0) {
             extraLeaderAttack = 0
         }
-        int attacks = extraLeaderAttack + (attacker.attributes.attacks * attacker.remainingModels())
+        int attacks = extraLeaderAttack + ((attacker.attributes.attacks + weaponBonusAttacks) * attacker.remainingModels())
         println "[${attacker.name}] $attacks attacks"
         return attacks
     }
@@ -151,7 +154,6 @@ class Attack {
     int leadershipRoll(Unit defender, int deathsThisTurn) {
         int modelsFleeing = deathsThisTurn + engine.dice.roll(1, 6) - defender.attributes.leadership
 
-        println "$defender.name ($deathsThisTurn dead) ${modelsFleeing} > ${defender.remainingModels()}"
         if (modelsFleeing > defender.remainingModels()) { 
             return defender.remainingModels()
         }
@@ -161,7 +163,6 @@ class Attack {
         }
 
         return modelsFleeing
-        // deal (1 * defender.attributes.wound) damage modelsFlee.times to defender    
     }
 
     void doLeadershipPhase(Unit defender, int modelsFleeing) {

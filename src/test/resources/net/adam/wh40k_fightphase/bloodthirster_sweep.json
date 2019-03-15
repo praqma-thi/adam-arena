@@ -17,18 +17,18 @@
     },
     "weapons": [
         {
-            "name": "Mighty Strike",
-            "range": 1,
-            "strength_bonus": 8,
-            "armour_piercing": -4,
-            "damage_roll": "2D5"
-        },
-        {
             "name": "Sweeping Blow",
             "range": 1,
             "armour_piercing": -2,
             "damage": 1,
             "bonus_attacks": 7
+        },
+        {
+            "name": "Mighty Strike",
+            "range": 1,
+            "strength_bonus": 8,
+            "armour_piercing": -4,
+            "damage_roll": "2D5"
         }
     ]
 }

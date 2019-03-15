@@ -3,6 +3,7 @@
     "name": "Stompa",
     "cost": 920,
     "attributes": {
+        "no_leader": true,
         "wound": 40,
         "strength": 10,
         "toughness": 8,

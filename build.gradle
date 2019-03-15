@@ -22,4 +22,4 @@ jacocoTestReport {
 build.dependsOn('jacocoTestReport')
 jacocoTestReport.dependsOn('test')
 
-mainClassName = 'net.thi.pathfinder.App'
+mainClassName = 'net.adam.wh40k_fightphase.App'

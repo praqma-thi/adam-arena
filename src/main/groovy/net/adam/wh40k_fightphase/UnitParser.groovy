@@ -1,4 +1,4 @@
-package net.thi.pathfinder
+package net.adam.wh40k_fightphase
 
 import groovy.json.JsonSlurper
 

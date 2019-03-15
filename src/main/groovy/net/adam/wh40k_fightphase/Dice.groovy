@@ -1,4 +1,4 @@
-package net.thi.pathfinder
+package net.adam.wh40k_fightphase
 
 import org.codehaus.groovy.control.CompilerConfiguration
 
@@ -18,7 +18,6 @@ class Dice {
         dice.times {
             result += rng.nextInt(sides) + 1
         }
-        println "[dice] ${dice}D${sides} -> $result"
         return result
     }
  

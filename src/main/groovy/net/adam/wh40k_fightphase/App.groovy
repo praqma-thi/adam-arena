@@ -37,19 +37,34 @@ class App {
 
         boolean gameOver = false
         while(!gameOver) {
+            int firstModels = first.remainingModels()
+            int secondModels = second.remainingModels()
+
+            println "-- First attack phase"
             attack.doFightPhase(first, second)
             gameOver = first.remainingModels() <= 0 || second.remainingModels() <= 0
-
             println "${first.name} - ${first.wound} wound"
             println "${second.name} - ${second.wound} wound"
             if (gameOver) { break }
 
+            println "-- Second attack phase"
             attack.doFightPhase(second, first)
             gameOver = first.remainingModels() <= 0 || second.remainingModels() <= 0
-
             println "${first.name} - ${first.wound} wound"
             println "${second.name} - ${second.wound} wound"
+            if (gameOver) { break }
 
+            println "-- Leadership phase"
+            int firstCowards = attack.leadershipRoll(first, firstModels - first.remainingModels())
+            int secondCowards = attack.leadershipRoll(second, secondModels - second.remainingModels())
+            attack.doLeadershipPhase(first, firstCowards)
+            attack.doLeadershipPhase(second, secondCowards)
+            gameOver = first.remainingModels() <= 0 || second.remainingModels() <= 0
+            println "${first.name} - ${first.wound} wound"
+            println "${second.name} - ${second.wound} wound"
+            if (gameOver) { break }
+
+            // Swap sides
             Unit spectator = first
             first = second
             second = spectator

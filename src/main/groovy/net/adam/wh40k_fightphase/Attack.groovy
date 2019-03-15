@@ -147,4 +147,26 @@ class Attack {
         println "[${defender.name}] ${actualWound} wounds left"
         defender.wound = actualWound
     }
-} 
+
+    int leadershipRoll(Unit defender, int deathsThisTurn) {
+        int modelsFleeing = deathsThisTurn + engine.dice.roll(1, 6) - defender.attributes.leadership
+
+        println "$defender.name ($deathsThisTurn dead) ${modelsFleeing} > ${defender.remainingModels()}"
+        if (modelsFleeing > defender.remainingModels()) { 
+            return defender.remainingModels()
+        }
+
+        if (modelsFleeing < 0) {
+            return 0
+        }
+
+        return modelsFleeing
+        // deal (1 * defender.attributes.wound) damage modelsFlee.times to defender    
+    }
+
+    void doLeadershipPhase(Unit defender, int modelsFleeing) {
+        modelsFleeing.times {
+            kill(defender, defender.attributes.wound)
+        }
+    }
+}

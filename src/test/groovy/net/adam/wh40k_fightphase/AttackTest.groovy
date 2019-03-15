@@ -181,4 +181,64 @@ class AttackTest extends Specification {
             assert trueDamage == test[3]
         }
     }
+
+    def "leadership_roll"() {
+        setup:
+        def attack = newAttack(1337)
+
+        // [unit, unit size, remainingWound, diedThisTurn, expectedToFlee]
+        def tests = [
+            ["vigilator", 20,  15,  5,  0],
+            ["lychguard", 20,  19, 10,  1],
+            ["hormagaunt", 50, 35, 15, 16],
+            ["hormagaunt", 20,  0, 20,  0],
+            ["hormagaunt", 20,  5, 15,  5],
+        ]
+
+        tests.each { test ->
+            when:
+            Unit squad = newSquad(test[1], test[0])
+            squad.wound = test[2]
+            int fleeingModels = attack.leadershipRoll(squad, test[3])
+
+            then:
+            assert fleeingModels == test[4]
+        }
+    }
+
+    // 2
+    // 1
+    // 6
+    // 5
+    // 4
+    // 5
+    // 6
+    // 5
+    // 2
+    // 4
+
+    def "leadership_phase" () {
+        setup:
+        def attack = newAttack(1337)
+
+        // [unit, remainingWound, fleeing, remainingWound]
+        def tests = [
+            ["vigilator", 10, 3, 7],
+            ["lychguard", 10, 5, 0],
+            ["lychguard", 39, 6, 28],
+            ["hormagaunt", 0, 0, 0],
+            ["bloodthirster", 4, 1, 0],
+            ["stompa", 1058, 1, 1040],   
+        ]
+
+        tests.each { test ->
+            when:
+            Unit squad = newSquad(30, test[0])
+            squad.wound = test[1]
+            attack.doLeadershipPhase(squad, test[2])
+
+            then:
+            assert squad.wound == test[3]
+        }
+    }
 }
